@@ -98,20 +98,19 @@ class EditorTextoField extends StatelessWidget {
 }
 
 class TransferenciaList extends StatelessWidget {
+  final List<Transferencia> _transferencias = List();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Transferências"),
       ),
-      body: Column(
-        children: <Widget>[
-          TransferenciaCard(transferencia: Transferencia(1000.00, 29200)),
-          TransferenciaCard(transferencia: Transferencia(3000.00, 87878)),
-          TransferenciaCard(transferencia: Transferencia(340.00, 190902)),
-          TransferenciaCard(transferencia: Transferencia(12000.00, 87878)),
-          TransferenciaCard(transferencia: Transferencia(2000.00, 87878)),
-        ],
+      body: ListView.builder(
+        itemCount: _transferencias.length,
+        itemBuilder: (context, indice) {
+          return TransferenciaCard(transferencia: _transferencias[indice]);
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
