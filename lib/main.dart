@@ -97,9 +97,16 @@ class EditorTextoField extends StatelessWidget {
   }
 }
 
-class TransferenciaList extends StatelessWidget {
+class TransferenciaList extends StatefulWidget {
   final List<Transferencia> _transferencias = List();
 
+  @override
+  State<StatefulWidget> createState() {
+    return TransferenciaListState();
+  }
+}
+
+class TransferenciaListState extends State<TransferenciaList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,9 +114,9 @@ class TransferenciaList extends StatelessWidget {
         title: Text("Transferências"),
       ),
       body: ListView.builder(
-        itemCount: _transferencias.length,
+        itemCount: widget._transferencias.length,
         itemBuilder: (context, indice) {
-          return TransferenciaCard(transferencia: _transferencias[indice]);
+          return TransferenciaCard(widget._transferencias[indice]);
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -118,8 +125,14 @@ class TransferenciaList extends StatelessWidget {
               MaterialPageRoute(builder: (buildContext) {
             return CadastroTransferencia();
           }));
+
           future.then((transferenciaRecebida) {
-            debugPrint('Transferencia recebida: $transferenciaRecebida');
+            if (transferenciaRecebida != null) {
+              debugPrint('Transferencia recebida: $transferenciaRecebida');
+              setState(() {
+                widget._transferencias.add(transferenciaRecebida);
+              });
+            }
           });
         },
         child: Icon(Icons.add),
@@ -131,7 +144,7 @@ class TransferenciaList extends StatelessWidget {
 class TransferenciaCard extends StatelessWidget {
   final Transferencia transferencia;
 
-  const TransferenciaCard({Key key, this.transferencia}) : super(key: key);
+  const TransferenciaCard(this.transferencia);
 
   @override
   Widget build(BuildContext context) {
@@ -149,4 +162,9 @@ class Transferencia {
   final int _numeroConta;
 
   Transferencia(this._valor, this._numeroConta);
+
+  @override
+  String toString() {
+    return "<Transferencia numeroConta=$_numeroConta, valor=$_valor >";
+  }
 }
