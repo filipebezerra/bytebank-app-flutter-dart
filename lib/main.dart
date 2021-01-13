@@ -5,7 +5,13 @@ void main() => runApp(BytebankApp());
 class BytebankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: TransferenciaList());
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.green[900],
+        accentColor: Colors.amberAccent[700],
+      ),
+      home: TransferenciaList(),
+    );
   }
 }
 
