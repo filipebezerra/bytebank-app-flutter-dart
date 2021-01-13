@@ -137,10 +137,8 @@ class TransferenciaListState extends State<TransferenciaList> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final Future<Transferencia> future = Navigator.push(context,
-              MaterialPageRoute(builder: (buildContext) {
-            return CadastroTransferencia();
-          }));
+          final Future<Transferencia> future = Navigator.of(context)
+              .push(SlideRightRoute(page: CadastroTransferencia()));
 
           future.then((transferenciaRecebida) {
             if (transferenciaRecebida != null) {
@@ -183,4 +181,31 @@ class Transferencia {
   String toString() {
     return "<Transferencia numeroConta=$_numeroConta, valor=$_valor >";
   }
+}
+
+class SlideRightRoute<T> extends PageRouteBuilder<T> {
+  final Widget page;
+
+  SlideRightRoute({this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(-1, 0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          ),
+        );
 }
