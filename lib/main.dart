@@ -20,23 +20,26 @@ class CadastroTransferencia extends StatelessWidget {
       appBar: AppBar(
         title: Text("Criando transferência"),
       ),
-      body: Column(
-        children: <Widget>[
-          EditorTextoField(
-            controlador: _controladorNumeroContaTexto,
-            rotulo: 'Número da conta',
-            icone: Icons.account_balance_wallet_outlined,
-            dica: '00000-0',
-            tipoTeclado: TextInputType.number,
-          ),
-          EditorTextoField(
-            controlador: _controladorValorTexto,
-            rotulo: 'Valor',
-            icone: Icons.monetization_on_outlined,
-            dica: '0,00',
-            tipoTeclado: TextInputType.numberWithOptions(decimal: true),
-          ),
-        ],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            EditorTextoField(
+              controlador: _controladorNumeroContaTexto,
+              rotulo: 'Número da conta',
+              icone: Icons.account_balance_wallet_outlined,
+              dica: '00000-0',
+              tipoTeclado: TextInputType.number,
+            ),
+            EditorTextoField(
+              controlador: _controladorValorTexto,
+              rotulo: 'Valor',
+              icone: Icons.monetization_on_outlined,
+              dica: '0,00',
+              tipoTeclado: TextInputType.numberWithOptions(decimal: true),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.save),
