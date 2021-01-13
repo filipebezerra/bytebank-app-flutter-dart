@@ -9,7 +9,14 @@ class BytebankApp extends StatelessWidget {
   }
 }
 
-class CadastroTransferencia extends StatelessWidget {
+class CadastroTransferencia extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return CadastroTransferenciaState();
+  }
+}
+
+class CadastroTransferenciaState extends State<CadastroTransferencia> {
   final TextEditingController _controladorNumeroContaTexto =
       TextEditingController();
   final TextEditingController _controladorValorTexto = TextEditingController();
