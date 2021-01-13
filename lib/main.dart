@@ -41,15 +41,17 @@ class CadastroTransferenciaState extends State<CadastroTransferencia> {
               controlador: _controladorNumeroContaTexto,
               rotulo: 'Número da conta',
               icone: Icons.account_balance_wallet_outlined,
-              dica: '00000-0',
+              dica: 'Deve seguir o formato 00000-0',
               tipoTeclado: TextInputType.number,
+              tamanhoMaximo: 7,
             ),
             EditorTextoField(
               controlador: _controladorValorTexto,
               rotulo: 'Valor',
               icone: Icons.monetization_on_outlined,
-              dica: '0,00',
+              dica: 'Deve seguir o formato 0.000,00',
               tipoTeclado: TextInputType.numberWithOptions(decimal: true),
+              tamanhoMaximo: 16,
             ),
           ],
         ),
@@ -83,6 +85,7 @@ class EditorTextoField extends StatelessWidget {
   final String dica;
   final IconData icone;
   final TextInputType tipoTeclado;
+  final int tamanhoMaximo;
 
   const EditorTextoField({
     Key key,
@@ -91,18 +94,22 @@ class EditorTextoField extends StatelessWidget {
     this.dica,
     this.icone,
     this.tipoTeclado,
+    this.tamanhoMaximo,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: TextField(
+      child: TextFormField(
+        cursorColor: Theme.of(context).cursorColor,
+        maxLength: tamanhoMaximo,
         controller: controlador,
         decoration: InputDecoration(
           labelText: rotulo,
-          icon: icone != null ? Icon(icone) : null,
-          hintText: dica,
+          helperText: dica,
+          border: OutlineInputBorder(),
+          prefixIcon: icone != null ? Icon(icone) : null,
         ),
         style: TextStyle(
           fontSize: 24.0,
@@ -183,6 +190,7 @@ class Transferencia {
   }
 }
 
+// https://medium.com/flutter-community/everything-you-need-to-know-about-flutter-page-route-transition-9ef5c1b32823
 class SlideRightRoute<T> extends PageRouteBuilder<T> {
   final Widget page;
 
